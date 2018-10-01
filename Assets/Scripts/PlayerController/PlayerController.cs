@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
 
   [Header("State")]
   [SerializeField]
-  private PlayerState state = PlayerState.IDLE;
+  private PlayerState state = PlayerState.AIRBORNE;
 
   [Header("Jumping")]
   [SerializeField]
@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
 
   private BoxCollider2D cameraFollowCollider;
   private LagueController2D controller;
+  private LagueController2D.CollisionInfo collisionInfo;
 
   // Start is called before the first frame update
   void Awake()
@@ -71,19 +72,17 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
   void Update()
   {
     playerInput.GatherInput();
-    float horizInput = playerInput.GetHorizInput();
-    LagueController2D.CollisionInfo collisionInfo = controller.GetCollisions();
+    collisionInfo = controller.GetCollisions();
+    // See if we need to change our state before processing input.
+    CheckForStateUpdates();
 
     switch (state)
     {
-      case PlayerState.IDLE:
-        Idle();
+      case PlayerState.GROUNDED:
+        Grounded();
         break;
-      case PlayerState.RUNNING:
-        Running();
-        break;
-      case PlayerState.JUMPING:
-        Jumping();
+      case PlayerState.AIRBORNE:
+        Airborne();
         break;
       case PlayerState.ATTACKING:
         Attacking();
@@ -92,79 +91,42 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
         WallClinging();
         break;
     }
+  }
 
-    int wallDirX = collisionInfo.left ? -1 : 1;
-
-    float targetVelocityX = horizInput * speed;
-    float smoothFactor = collisionInfo.below ? velocityXSmoothFactorGrounded : velocityXSmoothFactorAirborne;
-    velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, smoothFactor);
-
-    wallSliding = false;
-    if ((collisionInfo.left || collisionInfo.right) && !collisionInfo.below && velocity.y < 0)
+  private void CheckForStateUpdates()
+  {
+    switch (state)
     {
-      wallSliding = true;
-      if (velocity.y < -wallSlideSpeedMax)
-      {
-        velocity.y = -wallSlideSpeedMax;
-      }
-
-      if (timeUntilWallUnstick > 0)
-      {
-        velocity.x = 0f;
-        velocityXSmoothing = 0f;
-        if (playerInput.GetHorizInput() != wallDirX && playerInput.GetHorizInput() != 0)
+      case PlayerState.GROUNDED:
+        if (!collisionInfo.below)
         {
-          timeUntilWallUnstick -= Time.deltaTime;
+          state = PlayerState.AIRBORNE;
         }
-        else
+        break;
+      case PlayerState.AIRBORNE:
+        if (collisionInfo.below && velocity.y <= 0f)
         {
+          state = PlayerState.GROUNDED;
+        }
+        else if (collisionInfo.left || collisionInfo.right && !collisionInfo.below && velocity.y < 0)
+        {
+          state = PlayerState.WALL_CLINGING;
           timeUntilWallUnstick = wallStickTime;
         }
-      }
-      else
-      {
-        timeUntilWallUnstick = wallStickTime;
-      }
-    }
-
-    if (collisionInfo.below || collisionInfo.above)
-    {
-      velocity.y = 0;
-    }
-
-    if (playerInput.GetDidPressJump() || playerInput.GetDidPressAttack())
-    {
-      if (wallSliding)
-      {
-        if (wallDirX == horizInput)
+        break;
+      case PlayerState.WALL_CLINGING:
+        if (collisionInfo.below)
         {
-          velocity.x = -wallDirX * towardWallForce.x;
-          velocity.y = towardWallForce.y;
+          state = PlayerState.GROUNDED;
         }
-        else if (horizInput == 0)
+        else if (!collisionInfo.left && !collisionInfo.right)
         {
-          velocity.x = -wallDirX * neutralForce.x;
-          velocity.y = neutralForce.y;
+          state = PlayerState.AIRBORNE;
         }
-        else
-        {
-          velocity.x = -wallDirX * awayFromWallForce.x;
-          velocity.y = awayFromWallForce.y;
-        }
-      }
-      if (collisionInfo.below)
-      {
-        velocity.y = maxJumpVelocity;
-      }
+        break;
+      default:
+        break;
     }
-
-    if (playerInput.GetDidPressAttack())
-    {
-
-    }
-
-    velocity.y += gravity * Time.deltaTime;
-    controller.Move(velocity * Time.deltaTime);
   }
 
   public Bounds GetCameraTrackingBounds()
@@ -177,17 +139,24 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
     return (int)playerInput.GetHorizInput();
   }
 
-  private void Idle()
+  private void Grounded()
   {
+    if (playerInput.GetDidPressJump())
+    {
+      velocity.y = maxJumpVelocity;
+      state = PlayerState.AIRBORNE;
+      return;
+    }
 
+    float horizInput = playerInput.GetHorizInput();
+    float targetVelocityX = horizInput * speed;
+    velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, velocityXSmoothFactorGrounded);
+
+    velocity.y = gravity * Time.deltaTime;
+    controller.Move(velocity * Time.deltaTime);
   }
 
-  private void Running()
-  {
-
-  }
-
-  private void Jumping()
+  private void Airborne()
   {
     if (playerInput.GetDidReleaseJump())
     {
@@ -196,6 +165,19 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
         velocity.y = minJumpVelocity;
       }
     }
+
+    float horizInput = playerInput.GetHorizInput();
+    float targetVelocityX = horizInput * speed;
+    velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, velocityXSmoothFactorAirborne);
+
+    // Flew into something.
+    if (collisionInfo.above)
+    {
+      velocity.y = 0f;
+    }
+
+    velocity.y += gravity * Time.deltaTime;
+    controller.Move(velocity * Time.deltaTime);
   }
 
   private void Attacking()
@@ -205,14 +187,55 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
 
   private void WallClinging()
   {
+    int wallDirX = collisionInfo.left ? -1 : 1;
+    float horizInput = playerInput.GetHorizInput();
 
+    if (horizInput == wallDirX)
+    {
+      timeUntilWallUnstick = wallStickTime;
+    }
+    else if (timeUntilWallUnstick <= 0)
+    {
+      float targetVelocityX = horizInput * speed;
+      velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, velocityXSmoothFactorGrounded);
+    }
+    else
+    {
+      timeUntilWallUnstick -= Time.deltaTime;
+    }
+
+    if (Mathf.Abs(velocity.y) > wallSlideSpeedMax)
+    {
+      velocity.y = -wallSlideSpeedMax;
+    }
+
+    if (playerInput.GetDidPressJump())
+    {
+      if (wallDirX == horizInput)
+      {
+        velocity.x = -wallDirX * towardWallForce.x;
+        velocity.y = towardWallForce.y;
+      }
+      else if (horizInput == 0)
+      {
+        velocity.x = -wallDirX * neutralForce.x;
+        velocity.y = neutralForce.y;
+      }
+      else
+      {
+        velocity.x = -wallDirX * awayFromWallForce.x;
+        velocity.y = awayFromWallForce.y;
+      }
+    }
+
+    velocity.y += gravity * Time.deltaTime;
+    controller.Move(velocity * Time.deltaTime);
   }
 
   public enum PlayerState
   {
-    IDLE,
-    RUNNING,
-    JUMPING,
+    GROUNDED,
+    AIRBORNE,
     ATTACKING,
     WALL_CLINGING
   }
