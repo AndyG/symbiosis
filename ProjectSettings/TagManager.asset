@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Ghost
+  - Player
+  - CameraTarget
+  - Enemy
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Background
+    uniqueID: 1061492229
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 1426861867
+    locked: 0
+  - name: DoorBackground
+    uniqueID: 1401087393
+    locked: 0
+  - name: DoorForeground
+    uniqueID: 2068760661
+    locked: 0
+  - name: Depth2
+    uniqueID: 3355236647
+    locked: 0
+  - name: Depth1
+    uniqueID: 989852081
+    locked: 0
