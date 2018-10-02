@@ -1,0 +1,78 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class StateWallCling : State<PlayerController>
+{
+
+  private float timeUntilWallUnstick = 0f;
+
+  public void OnStateEnter(PlayerController context)
+  {
+    timeUntilWallUnstick = context.GetWallStickTime();
+  }
+
+  public void OnStateExit(PlayerController context)
+  {
+
+  }
+
+  public State<PlayerController> Tick(PlayerController context)
+  {
+    if (context.collisionInfo.below)
+    {
+      return new StateGrounded();
+    }
+    else if (!context.collisionInfo.left && !context.collisionInfo.right)
+    {
+      return new StateAirborne();
+    }
+
+    int wallDirX = context.collisionInfo.left ? -1 : 1;
+    float horizInput = context.GetPlayerInput().GetHorizInput();
+
+    if (horizInput == wallDirX)
+    {
+      timeUntilWallUnstick = context.GetWallStickTime();
+    }
+    else if (timeUntilWallUnstick <= 0)
+    {
+      float targetVelocityX = horizInput * context.GetSpeed();
+      context.velocity.x = Mathf.SmoothDamp(context.velocity.x, targetVelocityX, ref context.velocityXSmoothing, context.GetVelocityXSmoothFactorGrounded());
+    }
+    else
+    {
+      timeUntilWallUnstick -= Time.deltaTime;
+    }
+
+    if (Mathf.Abs(context.velocity.y) > context.GetWallSlideSpeedMax())
+    {
+      context.velocity.y = -context.GetWallSlideSpeedMax();
+    }
+
+    if (context.GetPlayerInput().GetDidPressJump())
+    {
+      Vector2 wallJumpForce;
+      if (wallDirX == horizInput)
+      {
+        wallJumpForce = context.GetWallClimbForce();
+      }
+      else if (horizInput == 0)
+      {
+        wallJumpForce = context.GetWallHopForce();
+      }
+      else
+      {
+        wallJumpForce = context.GetWallLeapForce();
+      }
+
+      context.velocity.x = -wallDirX * wallJumpForce.x;
+      context.velocity.y = wallJumpForce.y;
+    }
+
+    context.velocity.y += context.GetGravity() * Time.deltaTime;
+    context.GetController().Move(context.velocity * Time.deltaTime);
+
+    return this;
+  }
+}
