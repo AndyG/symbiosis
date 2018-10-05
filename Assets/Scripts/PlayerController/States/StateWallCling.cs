@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "StateWallCling", menuName = "PlayerState/StateWallCling")]
 public class StateWallCling : PlayerState
 {
 
@@ -17,11 +16,11 @@ public class StateWallCling : PlayerState
   {
     if (context.collisionInfo.below)
     {
-      return ScriptableObject.CreateInstance<StateGrounded>();
+      return new StateGrounded();
     }
     else if (!context.collisionInfo.left && !context.collisionInfo.right)
     {
-      return ScriptableObject.CreateInstance<StateAirborne>();
+      return new StateAirborne();
     }
 
     int wallDirX = context.collisionInfo.left ? -1 : 1;

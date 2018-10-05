@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "StateAttacking", menuName = "PlayerState/StateAttacking")]
 public class StateAttacking : PlayerState
 {
 

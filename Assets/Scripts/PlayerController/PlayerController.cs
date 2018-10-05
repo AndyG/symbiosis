@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
   private float velocityXSmoothFactorAirborne = 0.1f;
 
   private PlayerInput playerInput;
+
   [HideInInspector]
   public Vector3 velocity;
 
@@ -67,7 +68,7 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
     minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
     maxJumpVelocity = -gravity * timeToJumpApex;
 
-    state = ScriptableObject.CreateInstance<StateAirborne>();
+    state = new StateAirborne();
     state.OnStateEnter(this);
   }
 

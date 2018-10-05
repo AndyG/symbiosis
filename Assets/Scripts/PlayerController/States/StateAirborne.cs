@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "StateAirborne", menuName = "PlayerState/StateAirborne")]
 public class StateAirborne : PlayerState
 {
 
@@ -10,12 +9,12 @@ public class StateAirborne : PlayerState
   {
     if (context.collisionInfo.below && context.velocity.y <= 0f)
     {
-      return ScriptableObject.CreateInstance<StateGrounded>();
+      return new StateGrounded();
     }
     else if ((context.collisionInfo.left || context.collisionInfo.right)
     && (!context.collisionInfo.below && context.velocity.y < 0))
     {
-      return ScriptableObject.CreateInstance<StateWallCling>();
+      return new StateWallCling();
     }
 
     if (context.GetPlayerInput().GetDidReleaseJump())

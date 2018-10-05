@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "StateGrounded", menuName = "PlayerState/StateGrounded")]
 public class StateGrounded : PlayerState
 {
   public override PlayerState Tick(PlayerController context)
@@ -12,13 +11,13 @@ public class StateGrounded : PlayerState
 
     if (!collisionInfo.below)
     {
-      return ScriptableObject.CreateInstance<StateAirborne>();
+      return new StateAirborne();
     }
 
     if (playerInput.GetDidPressJump())
     {
       context.velocity.y = context.GetMaxJumpVelocity();
-      return ScriptableObject.CreateInstance<StateAirborne>();
+      return new StateAirborne();
     }
 
     float horizInput = playerInput.GetHorizInput();

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class PlayerState : ScriptableObject
+public abstract class PlayerState
 {
   public virtual void OnStateEnter(PlayerController context)
   {
