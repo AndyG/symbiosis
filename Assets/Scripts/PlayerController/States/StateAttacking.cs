@@ -2,18 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateAttacking : State<PlayerController>
+[CreateAssetMenu(fileName = "StateAttacking", menuName = "PlayerState/StateAttacking")]
+public class StateAttacking : PlayerState
 {
-  public void OnStateEnter(PlayerController context)
-  {
 
-  }
-  public void OnStateExit(PlayerController context)
-  {
+  [SerializeField]
+  private float cooldown = 0.5f;
 
-  }
-
-  public State<PlayerController> Tick(PlayerController context)
+  public override PlayerState Tick(PlayerController context)
   {
     return this;
   }

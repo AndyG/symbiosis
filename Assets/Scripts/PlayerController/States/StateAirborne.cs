@@ -2,29 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateAirborne : State<PlayerController>
+[CreateAssetMenu(fileName = "StateAirborne", menuName = "PlayerState/StateAirborne")]
+public class StateAirborne : PlayerState
 {
 
-  public void OnStateEnter(PlayerController context)
-  {
-
-  }
-
-  public void OnStateExit(PlayerController context)
-  {
-
-  }
-
-  public State<PlayerController> Tick(PlayerController context)
+  public override PlayerState Tick(PlayerController context)
   {
     if (context.collisionInfo.below && context.velocity.y <= 0f)
     {
-      return new StateGrounded();
+      return ScriptableObject.CreateInstance<StateGrounded>();
     }
     else if ((context.collisionInfo.left || context.collisionInfo.right)
     && (!context.collisionInfo.below && context.velocity.y < 0))
     {
-      return new StateWallCling();
+      return ScriptableObject.CreateInstance<StateWallCling>();
     }
 
     if (context.GetPlayerInput().GetDidReleaseJump())

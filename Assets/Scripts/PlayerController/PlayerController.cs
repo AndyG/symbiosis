@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
 
   [Header("State")]
   [SerializeField]
-  private State<PlayerController> state = new StateAirborne();
+  private PlayerState state;
 
   [Header("Jumping")]
   [SerializeField]
@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
     minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
     maxJumpVelocity = -gravity * timeToJumpApex;
 
+    state = ScriptableObject.CreateInstance<StateAirborne>();
     state.OnStateEnter(this);
   }
 
@@ -75,7 +76,7 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
   {
     playerInput.GatherInput();
     collisionInfo = controller.GetCollisions();
-    State<PlayerController> prevState = state;
+    PlayerState prevState = state;
     state = state.Tick(this);
     if (state != prevState)
     {

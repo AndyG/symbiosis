@@ -2,33 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateGrounded : State<PlayerController>
+[CreateAssetMenu(fileName = "StateGrounded", menuName = "PlayerState/StateGrounded")]
+public class StateGrounded : PlayerState
 {
-
-  public void OnStateEnter(PlayerController context)
-  {
-
-  }
-
-  public void OnStateExit(PlayerController context)
-  {
-
-  }
-
-  public State<PlayerController> Tick(PlayerController context)
+  public override PlayerState Tick(PlayerController context)
   {
     LagueController2D.CollisionInfo collisionInfo = context.GetCollisionInfo();
     PlayerInput playerInput = context.GetPlayerInput();
 
     if (!collisionInfo.below)
     {
-      return new StateAirborne();
+      return ScriptableObject.CreateInstance<StateAirborne>();
     }
 
     if (playerInput.GetDidPressJump())
     {
       context.velocity.y = context.GetMaxJumpVelocity();
-      return new StateAirborne();
+      return ScriptableObject.CreateInstance<StateAirborne>();
     }
 
     float horizInput = playerInput.GetHorizInput();

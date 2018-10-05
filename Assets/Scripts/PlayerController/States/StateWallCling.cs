@@ -2,30 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateWallCling : State<PlayerController>
+[CreateAssetMenu(fileName = "StateWallCling", menuName = "PlayerState/StateWallCling")]
+public class StateWallCling : PlayerState
 {
 
   private float timeUntilWallUnstick = 0f;
 
-  public void OnStateEnter(PlayerController context)
+  public override void OnStateEnter(PlayerController context)
   {
     timeUntilWallUnstick = context.GetWallStickTime();
   }
 
-  public void OnStateExit(PlayerController context)
-  {
-
-  }
-
-  public State<PlayerController> Tick(PlayerController context)
+  public override PlayerState Tick(PlayerController context)
   {
     if (context.collisionInfo.below)
     {
-      return new StateGrounded();
+      return ScriptableObject.CreateInstance<StateGrounded>();
     }
     else if (!context.collisionInfo.left && !context.collisionInfo.right)
     {
-      return new StateAirborne();
+      return ScriptableObject.CreateInstance<StateAirborne>();
     }
 
     int wallDirX = context.collisionInfo.left ? -1 : 1;
