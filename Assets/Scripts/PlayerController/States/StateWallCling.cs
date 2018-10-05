@@ -10,6 +10,7 @@ public class StateWallCling : PlayerState
   public override void OnStateEnter(PlayerController context)
   {
     timeUntilWallUnstick = context.GetWallStickTime();
+    context.animator.SetInteger("PlayerState", PlayerState.STATE_WALLCLING_INT);
   }
 
   public override PlayerState Tick(PlayerController context)

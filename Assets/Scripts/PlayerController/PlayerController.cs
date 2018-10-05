@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
   [SerializeField]
   private float velocityXSmoothFactorAirborne = 0.1f;
 
+  private int dirFacing = 1;
+
   private PlayerInput playerInput;
 
   [HideInInspector]
@@ -56,12 +58,19 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
   [HideInInspector]
   public LagueController2D.CollisionInfo collisionInfo;
 
+  [Header("Melee")]
+  public Collider2D meleeHitbox;
+
+  [Header("Animation")]
+  public Animator animator;
+
   // Start is called before the first frame update
   void Awake()
   {
     controller = GetComponent<LagueController2D>();
     playerInput = GetComponent<PlayerInput>();
     cameraFollowCollider = GetComponent<BoxCollider2D>();
+    animator = GetComponent<Animator>();
 
     // See Sebastian Lague videos for explanations here.
     gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
@@ -84,6 +93,11 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
       prevState.OnStateExit(this);
       state.OnStateEnter(this);
     }
+  }
+
+  public void OnAttackAnimationFinished()
+  {
+    state.OnAttackAnimationFinished(this);
   }
 
   public Bounds GetCameraTrackingBounds()

@@ -5,6 +5,11 @@ using UnityEngine;
 public class StateAirborne : PlayerState
 {
 
+  public override void OnStateEnter(PlayerController context)
+  {
+    context.animator.SetInteger("PlayerState", PlayerState.STATE_AIRBORNE_INT);
+  }
+
   public override PlayerState Tick(PlayerController context)
   {
     if (context.collisionInfo.below && context.velocity.y <= 0f)

@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class StateGrounded : PlayerState
 {
+
+  public override void OnStateEnter(PlayerController context)
+  {
+    context.animator.SetInteger("PlayerState", PlayerState.STATE_GROUNDED_INT);
+  }
+
   public override PlayerState Tick(PlayerController context)
   {
     LagueController2D.CollisionInfo collisionInfo = context.GetCollisionInfo();
@@ -18,6 +24,11 @@ public class StateGrounded : PlayerState
     {
       context.velocity.y = context.GetMaxJumpVelocity();
       return new StateAirborne();
+    }
+
+    if (playerInput.GetDidPressAttack())
+    {
+      return new StateAttacking();
     }
 
     float horizInput = playerInput.GetHorizInput();
