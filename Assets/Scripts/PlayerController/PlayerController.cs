@@ -95,6 +95,19 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
     }
   }
 
+  public void FaceVelocityX() {
+    if (velocity.x != 0) {
+      SetFacingDirection((int)Mathf.Sign(velocity.x));
+    }
+  }
+
+  public void SetFacingDirection(int facingDirection) {
+    // transform.eulerAngles = new Vector2(0, (facingDirection == 1) ? 0 : 180f);
+    transform.rotation = Quaternion.Euler(0f,
+    (facingDirection == 1) ? 0f : 180f, // flip the sprite.
+    0f);
+  }
+
   public void OnAttackAnimationFinished()
   {
     state.OnAttackAnimationFinished(this);

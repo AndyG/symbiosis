@@ -42,6 +42,7 @@ public class StateAirborne : PlayerState
 
     context.velocity.y += context.GetGravity() * Time.deltaTime;
     context.GetController().Move(context.velocity * Time.deltaTime);
+    context.FaceVelocityX();
 
     return this;
   }

@@ -34,8 +34,9 @@ public class StateGrounded : PlayerState
     float horizInput = playerInput.GetHorizInput();
     float targetVelocityX = horizInput * context.GetSpeed();
     context.velocity.x = Mathf.SmoothDamp(context.velocity.x, targetVelocityX, ref context.velocityXSmoothing, context.GetVelocityXSmoothFactorGrounded());
-
     context.velocity.y = context.GetGravity() * Time.deltaTime;
+
+    context.FaceVelocityX();
     context.GetController().Move(context.velocity * Time.deltaTime);
 
     return this;

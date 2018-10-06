@@ -11,6 +11,9 @@ public class StateAttacking : PlayerState
   [SerializeField]
   private float cooldown = 0.5f;
 
+  [SerializeField]
+  private float attackingMoveSpeedFactor = 0.3f;
+
   private float timeInState = 0f;
 
   public override void OnStateEnter(PlayerController context)
@@ -33,6 +36,7 @@ public class StateAttacking : PlayerState
     }
 
     timeInState += Time.deltaTime;
+
     return this;
   }
 

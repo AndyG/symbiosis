@@ -232,6 +232,34 @@ PrefabInstance:
       propertyPath: drawGizmos
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5410553764384844056, guid: 7e08c855dc8604f648c79389df4b17e3, type: 3}
+      propertyPath: orthographic size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5410553764384844059, guid: 7e08c855dc8604f648c79389df4b17e3, type: 3}
+      propertyPath: m_AssetsPPU
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 5410553764384844056, guid: 7e08c855dc8604f648c79389df4b17e3, type: 3}
+      propertyPath: m_NormalizedViewPortRect.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5410553764384844056, guid: 7e08c855dc8604f648c79389df4b17e3, type: 3}
+      propertyPath: m_NormalizedViewPortRect.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5410553764384844056, guid: 7e08c855dc8604f648c79389df4b17e3, type: 3}
+      propertyPath: m_NormalizedViewPortRect.width
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5410553764384844056, guid: 7e08c855dc8604f648c79389df4b17e3, type: 3}
+      propertyPath: m_NormalizedViewPortRect.height
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5410553764384844058, guid: 7e08c855dc8604f648c79389df4b17e3, type: 3}
+      propertyPath: verticalOffset
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e08c855dc8604f648c79389df4b17e3, type: 3}
 --- !u!1 &501778724 stripped
@@ -354,14 +382,6 @@ PrefabInstance:
     - target: {fileID: 64146213, guid: 724f1c2df20af44c088af7f125fe7585, type: 3}
       propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 64146214, guid: 724f1c2df20af44c088af7f125fe7585, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 64146214, guid: 724f1c2df20af44c088af7f125fe7585, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.95579696
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 724f1c2df20af44c088af7f125fe7585, type: 3}
