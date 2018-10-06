@@ -19,19 +19,14 @@ public class LagueController2D : RaycastController
   public override void Start()
   {
     base.Start();
-    collisionInfo.faceDir = 1;
   }
 
   public void Move(Vector3 moveDistance, bool isStandingOnPlatform = false)
   {
+    Debug.Log("move: " + moveDistance);
     UpdateRaycastOrigins();
     collisionInfo.Reset();
     collisionInfo.velocityOld = moveDistance;
-
-    if (moveDistance.x != 0)
-    {
-      collisionInfo.faceDir = (int)Mathf.Sign(moveDistance.x);
-    }
 
     if (moveDistance.y < 0)
     {
@@ -51,7 +46,7 @@ public class LagueController2D : RaycastController
     }
 
     CheckForSlopeChange(ref moveDistance);
-    transform.Translate(moveDistance);
+    transform.Translate(moveDistance, Space.World);
   }
 
   public CollisionInfo GetCollisions()
@@ -61,7 +56,7 @@ public class LagueController2D : RaycastController
 
   private void HorizontalCollisions(ref Vector3 moveDistance)
   {
-    float directionX = collisionInfo.faceDir;
+    float directionX = (int)Mathf.Sign(moveDistance.x);
     float rayLength = Mathf.Abs(moveDistance.x) + skinWidth;
 
     if (Mathf.Abs(moveDistance.x) < skinWidth)
@@ -228,7 +223,6 @@ public class LagueController2D : RaycastController
     public bool descendingSlope;
     public float slopeAngle, slopeAngleOld;
     public Vector3 velocityOld;
-    public int faceDir;
 
     public void Reset()
     {
