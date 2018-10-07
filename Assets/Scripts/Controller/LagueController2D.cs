@@ -23,7 +23,6 @@ public class LagueController2D : RaycastController
 
   public void Move(Vector3 moveDistance, bool isStandingOnPlatform = false)
   {
-    Debug.Log("move: " + moveDistance);
     UpdateRaycastOrigins();
     collisionInfo.Reset();
     collisionInfo.velocityOld = moveDistance;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeAttack : MonoBehaviour
+public interface Hurtable
 {
-
+    void OnHurt(RectHitbox hitbox);
 }

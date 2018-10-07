@@ -36,6 +36,17 @@ public class StateAttacking : PlayerState
     }
 
     timeInState += Time.deltaTime;
+    Collider2D[] hurtboxes = context.meleeHitbox.GetHurtboxes(context.enemyLayerMask);
+    Debug.Log("Got " + hurtboxes.Length + " hurtboxes");
+    for (int i = 0; i < hurtboxes.Length; i++) {
+      Hurtable hurtable = hurtboxes[i].GetComponent<Hurtable>();
+      if (hurtable != null) {
+        hurtable.OnHurt(context.meleeHitbox);
+        Debug.Log("Found hurtable");
+      } else {
+        Debug.Log("Did not find hurtable");
+      }
+    }
 
     return this;
   }

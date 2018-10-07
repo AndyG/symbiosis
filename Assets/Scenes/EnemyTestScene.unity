@@ -379,10 +379,50 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 64146213, guid: 724f1c2df20af44c088af7f125fe7585, type: 3}
+    - target: {fileID: 0}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 64146212, guid: 724f1c2df20af44c088af7f125fe7585, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 64146214, guid: 724f1c2df20af44c088af7f125fe7585, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 64146214, guid: 724f1c2df20af44c088af7f125fe7585, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1488270154255312295, guid: 724f1c2df20af44c088af7f125fe7585, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1488270154255312295, guid: 724f1c2df20af44c088af7f125fe7585, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.09235954
+      objectReference: {fileID: 0}
+    - target: {fileID: 1488270154255312295, guid: 724f1c2df20af44c088af7f125fe7585, type: 3}
+      propertyPath: m_Size.y
+      value: 1.1847191
+      objectReference: {fileID: 0}
+    - target: {fileID: 1488270154255312294, guid: 724f1c2df20af44c088af7f125fe7585, type: 3}
+      propertyPath: meleeAttack
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1488270154255312294, guid: 724f1c2df20af44c088af7f125fe7585, type: 3}
+      propertyPath: enemyLayerMask.m_Bits
+      value: 2048
+      objectReference: {fileID: 0}
+    - target: {fileID: 64146214, guid: 724f1c2df20af44c088af7f125fe7585, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1488270154255312294, guid: 724f1c2df20af44c088af7f125fe7585, type: 3}
+      propertyPath: meleeHitbox
+      value: 
+      objectReference: {fileID: 1944326678}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 724f1c2df20af44c088af7f125fe7585, type: 3}
 --- !u!1001 &1150761776
@@ -442,6 +482,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e4946052b2be44d482e91bca7da6b48, type: 3}
+--- !u!1 &1944326677 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 64146212, guid: 724f1c2df20af44c088af7f125fe7585, type: 3}
+  m_PrefabInstance: {fileID: 965066903}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1944326678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944326677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0387e8f95715425dab342eceb7a9239, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRangeX: 1
+  attackRangeY: 1
 --- !u!1001 &8328778678894709235
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -508,11 +567,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8837468120027646277, guid: eb0bab52ba3944df9a07fc45346808a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 23.53
+      value: 5.53
       objectReference: {fileID: 0}
     - target: {fileID: 8837468120027646277, guid: eb0bab52ba3944df9a07fc45346808a0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.25
+      value: 3.25
       objectReference: {fileID: 0}
     - target: {fileID: 8837468120027646277, guid: eb0bab52ba3944df9a07fc45346808a0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -553,10 +612,6 @@ PrefabInstance:
     - target: {fileID: 8837468120027646283, guid: eb0bab52ba3944df9a07fc45346808a0, type: 3}
       propertyPath: m_Name
       value: BasicEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 8837468120027646283, guid: eb0bab52ba3944df9a07fc45346808a0, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb0bab52ba3944df9a07fc45346808a0, type: 3}

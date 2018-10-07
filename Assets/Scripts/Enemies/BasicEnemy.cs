@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(LagueController2D))]
-public class BasicEnemy : MonoBehaviour
+public class BasicEnemy : MonoBehaviour, Hurtable
 {
 
   [SerializeField]
@@ -31,5 +31,9 @@ public class BasicEnemy : MonoBehaviour
   private void AddGravity(ref Vector2 velocity)
   {
     velocity.y = velocity.y - gravity;
+  }
+
+  public void OnHurt(RectHitbox hitbox) {
+    GameObject.Destroy(this.transform.gameObject);
   }
 }

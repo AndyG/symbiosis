@@ -59,7 +59,8 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
   public LagueController2D.CollisionInfo collisionInfo;
 
   [Header("Melee")]
-  public Collider2D meleeHitbox;
+  public RectHitbox meleeHitbox;
+  public LayerMask enemyLayerMask;
 
   [Header("Animation")]
   public Animator animator;
@@ -102,7 +103,6 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
   }
 
   public void SetFacingDirection(int facingDirection) {
-    // transform.eulerAngles = new Vector2(0, (facingDirection == 1) ? 0 : 180f);
     transform.rotation = Quaternion.Euler(0f,
     (facingDirection == 1) ? 0f : 180f, // flip the sprite.
     0f);

@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 64146214}
-  - component: {fileID: 64146213}
   m_Layer: 9
   m_Name: MeleeHitbox
   m_TagString: Untagged
@@ -31,32 +30,6 @@ Transform:
   m_Father: {fileID: 1488270154255312289}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &64146213
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 64146212}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.2653283, y: -0.041581273}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.46934342, y: 0.5129044}
-  m_EdgeRadius: 0
 --- !u!1 &1488270154255312348
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,7 +92,7 @@ MonoBehaviour:
   towardWallForce: {x: 35, y: 60}
   neutralForce: {x: 20, y: 10}
   awayFromWallForce: {x: 60, y: 20}
-  meleeHitbox: {fileID: 64146213}
+  meleeAttack: {fileID: 0}
   animator: {fileID: 0}
 --- !u!61 &1488270154255312295
 BoxCollider2D:
