@@ -12,12 +12,15 @@ public class BasicEnemy : MonoBehaviour, Hurtable
   [SerializeField]
   private float gravity = 1f;
 
+  private SpawnOnHit onHitObject;
+
   private LagueController2D controller2D;
 
   // Start is called before the first frame update
-  void Start()
+  void Awake()
   {
     controller2D = GetComponent<LagueController2D>();
+    onHitObject = GetComponent<SpawnOnHit>();
   }
 
   // Update is called once per frame
@@ -34,6 +37,9 @@ public class BasicEnemy : MonoBehaviour, Hurtable
   }
 
   public void OnHurt(RectHitbox hitbox) {
+    if (onHitObject != null) {
+      onHitObject.Spawn();
+    }
     GameObject.Destroy(this.transform.gameObject);
   }
 }
