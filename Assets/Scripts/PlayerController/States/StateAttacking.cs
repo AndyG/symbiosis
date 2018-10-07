@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EZCameraShake;
 
 public class StateAttacking : PlayerState
 {
@@ -37,18 +38,20 @@ public class StateAttacking : PlayerState
 
     timeInState += Time.deltaTime;
     Collider2D[] hurtboxes = context.meleeHitbox.GetHurtboxes(context.enemyLayerMask);
-    Debug.Log("Got " + hurtboxes.Length + " hurtboxes");
     for (int i = 0; i < hurtboxes.Length; i++) {
       Hurtable hurtable = hurtboxes[i].GetComponent<Hurtable>();
       if (hurtable != null) {
         hurtable.OnHurt(context.meleeHitbox);
-        Debug.Log("Found hurtable");
-      } else {
-        Debug.Log("Did not find hurtable");
+        ShakeCamera();
       }
     }
 
     return this;
+  }
+
+  private void ShakeCamera() {
+    float magn = 6f, rough = 10f, fadeIn = 0.1f, fadeOut = 2.8f;
+    CameraShaker.Instance.ShakeOnce(magn, rough, fadeIn, fadeOut);
   }
 
   public override void OnAttackAnimationFinished(PlayerController context)
