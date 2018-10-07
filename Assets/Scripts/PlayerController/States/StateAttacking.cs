@@ -43,6 +43,7 @@ public class StateAttacking : PlayerState
       if (hurtable != null) {
         hurtable.OnHurt(context.meleeHitbox);
         ShakeCamera();
+        context.Hitstop(2f);
       }
     }
 
