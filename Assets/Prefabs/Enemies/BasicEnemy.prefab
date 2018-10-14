@@ -94,12 +94,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 800ab722945754e4587fbb45da57fee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  speed: 0.8
   gravity: 128
   velocity: {x: 0, y: 0}
   knockbackVelocity: {x: 14, y: 25}
   hitFlashDuration: 0.2
   hitFlashMaterial: {fileID: 2100000, guid: a57f364d6a03c40e498e88fbef1384f1, type: 2}
+  hitstopDuration: 0.2
   state: 0
 --- !u!114 &1393463143231321072
 MonoBehaviour:
