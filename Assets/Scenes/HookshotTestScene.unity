@@ -597,7 +597,7 @@ PrefabInstance:
     - target: {fileID: 1488270154255312294, guid: 724f1c2df20af44c088af7f125fe7585,
         type: 3}
       propertyPath: reelSpeed
-      value: 30
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 724f1c2df20af44c088af7f125fe7585, type: 3}
@@ -700,7 +700,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.0497303
         inSlope: 0
         outSlope: 0
         tangentMode: 0
