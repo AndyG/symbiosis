@@ -19,6 +19,7 @@ public class PlayerInput : MonoBehaviour
   private bool didPressJump;
   private bool didReleaseJump;
   private bool didPressAttack;
+  private bool didPressGrapple;
 
   void Awake()
   {
@@ -32,6 +33,7 @@ public class PlayerInput : MonoBehaviour
     didPressJump = _GetDidPressJump();
     didReleaseJump = _GetDidReleaseJump();
     didPressAttack = _GetDidPressAttack();
+    didPressGrapple = _GetDidPressGrapple();
   }
 
   private void Clear()
@@ -40,28 +42,15 @@ public class PlayerInput : MonoBehaviour
     didPressJump = false;
     didReleaseJump = false;
     didPressAttack = false;
+    didPressGrapple = false;
   }
 
   #region Getters
-  public float GetHorizInput()
-  {
-    return horizInput;
-  }
-
-  public bool GetDidPressJump()
-  {
-    return didPressJump;
-  }
-
-  public bool GetDidReleaseJump()
-  {
-    return didReleaseJump;
-  }
-
-  public bool GetDidPressAttack()
-  {
-    return didPressAttack;
-  }
+  public float GetHorizInput() => horizInput;
+  public bool GetDidPressJump() => didPressJump;
+  public bool GetDidReleaseJump() => didReleaseJump;
+  public bool GetDidPressAttack() => didPressAttack;
+  public bool GetDidPressGrapple() => didPressGrapple;
   #endregion
 
   #region Get raw input
@@ -79,19 +68,9 @@ public class PlayerInput : MonoBehaviour
     }
   }
 
-  private bool _GetDidPressJump()
-  {
-    return player.GetButtonDown("Jump");
-  }
-
-  private bool _GetDidReleaseJump()
-  {
-    return player.GetButtonUp("Jump");
-  }
-
-  private bool _GetDidPressAttack()
-  {
-    return player.GetButtonDown("Attack");
-  }
+  private bool _GetDidPressJump() => player.GetButtonDown("Jump");
+  private bool _GetDidReleaseJump() => player.GetButtonUp("Jump");
+  private bool _GetDidPressAttack() => player.GetButtonDown("Attack");
+  private bool _GetDidPressGrapple() => player.GetButtonDown("Grapple");
   #endregion
 }

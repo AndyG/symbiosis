@@ -73,6 +73,8 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
   [Header("Grapple")]
   [SerializeField]
   private GrappleHook grappleHook;
+  [SerializeField]
+  private float reelSpeed = 70;
 
   // Start is called before the first frame update
   void Awake()
@@ -213,5 +215,14 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
     return towardWallForce;
   }
 
-  public GrappleHook GetGrappleHook => grappleHook;
+  public GrappleHook GetGrappleHook() => grappleHook;
+  public float GetReelSpeed() => reelSpeed;
+
+  public PlayerState GetDefaultState() {
+    if (collisionInfo.below) {
+      return new StateGrounded();
+    } else {
+      return new StateAirborne();
+    }
+  }
 }

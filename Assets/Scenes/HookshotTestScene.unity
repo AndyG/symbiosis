@@ -587,13 +587,18 @@ PrefabInstance:
     - target: {fileID: 1488270154255312294, guid: 724f1c2df20af44c088af7f125fe7585,
         type: 3}
       propertyPath: gravityScale
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1488270154255312294, guid: 724f1c2df20af44c088af7f125fe7585,
         type: 3}
       propertyPath: grappleHook
       value: 
       objectReference: {fileID: 985651276}
+    - target: {fileID: 1488270154255312294, guid: 724f1c2df20af44c088af7f125fe7585,
+        type: 3}
+      propertyPath: reelSpeed
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 724f1c2df20af44c088af7f125fe7585, type: 3}
 --- !u!1 &985651275
@@ -629,7 +634,7 @@ MonoBehaviour:
   endParticles: {fileID: 1552449332870003533, guid: d2019dcfb93d8498f91d4fce9444aebb,
     type: 3}
   endGlow: {fileID: 3429869196911157223, guid: 35cb8a3593c2b45c8a78d451f649ca9d, type: 3}
-  speed: 1
+  speed: 70
   targets:
     serializedVersion: 2
     m_Bits: 1

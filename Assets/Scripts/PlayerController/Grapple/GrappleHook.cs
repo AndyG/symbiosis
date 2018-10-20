@@ -50,14 +50,13 @@ public class GrappleHook : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, targets);
             if (hit) {
                 this.state = State.HITTING;
-                StartCoroutine(TestAutoRetract());
                 lineRenderer.SetPosition(0, this.transform.position);
                 lineRenderer.SetPosition(1, hit.point);
                 ConfigureEndingHit(hit);
             } else {
                 lineRenderer.SetPosition(0, this.transform.position);
                 lineRenderer.SetPosition(1, this.transform.position + direction * distance);
-                ConfigueEndingMiss();
+                ConfigureEndingMiss();
             }
         }
         if (state == State.RETRACTING) {
@@ -69,14 +68,13 @@ public class GrappleHook : MonoBehaviour
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, targets);
             if (hit) {
-                StartCoroutine(TestAutoRetract());
                 lineRenderer.SetPosition(0, this.transform.position);
                 lineRenderer.SetPosition(1, hit.point);
                 ConfigureEndingHit(hit);
             } else {
                 lineRenderer.SetPosition(0, this.transform.position);
                 lineRenderer.SetPosition(1, this.transform.position + (direction * distance));
-                ConfigueEndingMiss();
+                ConfigureEndingMiss();
             }
         }
     }
@@ -97,7 +95,7 @@ public class GrappleHook : MonoBehaviour
         }
     }
 
-    private void ConfigueEndingMiss() {
+    private void ConfigureEndingMiss() {
         if (endParticles != null) {
             if (endParticles.isPlaying) {
                 endParticles.Stop();
@@ -118,12 +116,17 @@ public class GrappleHook : MonoBehaviour
         this.state = State.RETRACTING;
     }
 
-    private IEnumerator TestAutoRetract() {
-        yield return new WaitForSeconds(1);
-        this.state = State.RETRACTING;
+    public void RetractInstant() {
+        this.distance = 0f;
+        ConfigureEndingMiss();
+        this.state = State.NONE;
     }
 
-    private enum State {
+    public Vector2 GetEndingPosition() => transform.position + direction * distance;
+
+    public State GetState => state;
+
+    public enum State {
         NONE,
         EXTENDING,
         RETRACTING,
