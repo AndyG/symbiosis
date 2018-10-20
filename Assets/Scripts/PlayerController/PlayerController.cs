@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
   [Header("Movement")]
   [SerializeField]
   private float speed = 5f;
+  [SerializeField]
+  private float gravityScale = 1f;
 
   private float gravity;
   private float maxJumpVelocity;
@@ -67,6 +69,10 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
 
   [Header("Hitstop")]
   private float hitstopTime;
+
+  [Header("Grapple")]
+  [SerializeField]
+  private GrappleHook grappleHook;
 
   // Start is called before the first frame update
   void Awake()
@@ -174,7 +180,7 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
 
   public float GetGravity()
   {
-    return gravity;
+    return gravity * gravityScale;
   }
 
   public LagueController2D GetController()
@@ -206,4 +212,6 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
   {
     return towardWallForce;
   }
+
+  public GrappleHook GetGrappleHook => grappleHook;
 }

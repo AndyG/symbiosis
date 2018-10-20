@@ -9,10 +9,7 @@ public class StateAttacking : PlayerState
   private HashSet<Hurtable> hitHurtables = new HashSet<Hurtable>();
 
   [SerializeField]
-  private float duration = 0.6f;
-
-  [SerializeField]
-  private float cooldown = 0.5f;
+  private float duration = 0.4f;
 
   [SerializeField]
   private float attackingMoveSpeedFactor = 0.6f;
@@ -47,7 +44,7 @@ public class StateAttacking : PlayerState
         hurtable.OnHurt(context.meleeHitbox);
         ShakeCamera();
         context.Hitstop(0.2f);
-        hitHurtables.Add(hurtable);
+        // hitHurtables.Add(hurtable);
       }
     }
 

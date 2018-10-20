@@ -59,3 +59,6 @@ TagManager:
   - name: Depth1
     uniqueID: 989852081
     locked: 0
+  - name: ParticleGlow
+    uniqueID: 3623537865
+    locked: 0

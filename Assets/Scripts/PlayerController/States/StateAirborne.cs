@@ -22,6 +22,10 @@ public class StateAirborne : PlayerState
       return new StateWallCling();
     }
 
+    if (Input.GetKeyDown(KeyCode.Space)) {
+      context.GetGrappleHook.Extend();
+    }
+
     if (context.GetPlayerInput().GetDidReleaseJump())
     {
       if (context.velocity.y > context.GetMinJumpVelocity())
