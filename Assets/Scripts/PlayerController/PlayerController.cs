@@ -35,8 +35,6 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
   [SerializeField]
   private float velocityXSmoothFactorAirborne = 0.1f;
 
-  private int dirFacing = 1;
-
   private PlayerInput playerInput;
 
   [HideInInspector]
@@ -145,76 +143,20 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
     return (int)playerInput.GetHorizInput();
   }
 
-  public LagueController2D.CollisionInfo GetCollisionInfo()
-  {
-    return collisionInfo;
-  }
-
-  public PlayerInput GetPlayerInput()
-  {
-    return playerInput;
-  }
-
-  public float GetSpeed()
-  {
-    return speed;
-  }
-
-  public float GetMaxJumpVelocity()
-  {
-    return maxJumpVelocity;
-  }
-
-  public float GetMinJumpVelocity()
-  {
-    return minJumpVelocity;
-  }
-
-  public float GetVelocityXSmoothFactorGrounded()
-  {
-    return velocityXSmoothFactorGrounded;
-  }
-
-  public float GetVelocityXSmoothFactorAirborne()
-  {
-    return velocityXSmoothFactorAirborne;
-  }
-
-  public float GetGravity()
-  {
-    return gravity * gravityScale;
-  }
-
-  public LagueController2D GetController()
-  {
-    return controller;
-  }
-
-  public float GetWallStickTime()
-  {
-    return wallStickTime;
-  }
-
-  public float GetWallSlideSpeedMax()
-  {
-    return wallSlideSpeedMax;
-  }
-
-  public Vector2 GetWallLeapForce()
-  {
-    return awayFromWallForce;
-  }
-
-  public Vector2 GetWallHopForce()
-  {
-    return neutralForce;
-  }
-
-  public Vector2 GetWallClimbForce()
-  {
-    return towardWallForce;
-  }
-
+  public LagueController2D.CollisionInfo GetCollisionInfo() => collisionInfo;
+  public PlayerInput GetPlayerInput() => playerInput;
+  public float GetSpeed() => speed;
+  public float GetMaxJumpVelocity() => maxJumpVelocity;
+  public float GetMinJumpVelocity() => minJumpVelocity;
+  public float GetVelocityXSmoothFactorGrounded() => velocityXSmoothFactorGrounded;
+  public float GetVelocityXSmoothFactorAirborne() => velocityXSmoothFactorAirborne;
+  public float GetGravity() => gravity * gravityScale;
+  public LagueController2D GetController() => controller;
+  public float GetWallStickTime() => wallStickTime;
+  public float GetWallSlideSpeedMax() => wallSlideSpeedMax;
+  public Vector2 GetWallLeapForce() => awayFromWallForce;
+  public Vector2 GetWallHopForce() => neutralForce;
+  public Vector2 GetWallClimbForce() => towardWallForce;
   public GrappleHook GetGrappleHook() => grappleHook;
   public float GetReelSpeed() => reelSpeed;
 

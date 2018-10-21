@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(LagueController2D))]
+[RequireComponent(typeof(Health))]
 public class BasicEnemy : MonoBehaviour, Hurtable
 {
 
@@ -28,6 +29,7 @@ public class BasicEnemy : MonoBehaviour, Hurtable
   private SpriteRenderer spriteRenderer;
   private SpawnOnHit onHitObject;
   private LagueController2D controller2D;
+  private Health health;
 
   // Start is called before the first frame update
   void Awake()
@@ -36,7 +38,10 @@ public class BasicEnemy : MonoBehaviour, Hurtable
     onHitObject = GetComponent<SpawnOnHit>();
     animator = GetComponent<Animator>();
     spriteRenderer = GetComponent<SpriteRenderer>();
+    health = GetComponent<Health>();
     defaultMaterial = spriteRenderer.material;
+
+    health.OnDiedEvent += this.OnDied;
   }
 
   // Update is called once per frame
@@ -74,7 +79,10 @@ public class BasicEnemy : MonoBehaviour, Hurtable
     if (onHitObject != null) {
       onHitObject.Spawn();
     }
+    health.subtract(1);
+  }
 
+  private void OnDied() {
     GameObject.Destroy(this.transform.gameObject);
   }
 
