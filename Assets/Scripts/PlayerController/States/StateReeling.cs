@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EZCameraShake;
 
 public class StateReeling : PlayerState
 {
@@ -19,15 +20,16 @@ public class StateReeling : PlayerState
     Vector2 curPosition = context.transform.position;
     LagueController2D.CollisionInfo collisionInfo = context.collisionInfo;
     float directionX = Mathf.Sign(grappleEndPos.x - curPosition.x);
-    if (directionX == 1 && collisionInfo.right || directionX == -1 && collisionInfo.left) {
-        grappleHook.RetractInstant();
-        return context.GetDefaultState();
-    }
 
     float directionY = Mathf.Sign(grappleEndPos.y - curPosition.y);
     if (directionY == 1 && collisionInfo.above || directionY == -1 && collisionInfo.below) {
-        grappleHook.RetractInstant();
+        EndGrapple(context);
         return context.GetDefaultState();
+    }
+
+    if (directionX == 1 && collisionInfo.right || directionX == -1 && collisionInfo.left) {
+        EndGrapple(context);
+        return new StateWallCling();
     }
 
     float targetVelocity = context.GetReelSpeed();
@@ -41,5 +43,16 @@ public class StateReeling : PlayerState
     context.GetController().Move(context.velocity * Time.deltaTime);
 
     return this;
+  }
+
+  private void EndGrapple(PlayerController context) {
+    ShakeCamera();
+    context.Hitstop(0.3f);
+    context.GetGrappleHook().RetractInstant();
+  }
+
+  private void ShakeCamera() {
+    float magn = 3f, rough = 10f, fadeIn = 0.1f, fadeOut = 0.2f;
+    CameraShaker.Instance.ShakeOnce(magn, rough, fadeIn, fadeOut);
   }
 }

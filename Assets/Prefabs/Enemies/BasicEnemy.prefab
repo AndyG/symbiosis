@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 800ab722945754e4587fbb45da57fee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.8
+  speed: 0
   gravity: 128
   velocity: {x: 0, y: 0}
   knockbackVelocity: {x: 14, y: 25}
@@ -114,7 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b2cc5c2896e24efa88b079f059425ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prototype: {fileID: 1101490127907906210, guid: 7a74afbe391e64a44af9cfc01b64cc5a, type: 3}
+  prototype: {fileID: 1101490127907906210, guid: 7a74afbe391e64a44af9cfc01b64cc5a,
+    type: 3}
 --- !u!212 &2951611498539773388
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -44,7 +44,7 @@ public class StateAttacking : PlayerState
         hurtable.OnHurt(context.meleeHitbox);
         ShakeCamera();
         context.Hitstop(0.2f);
-        // hitHurtables.Add(hurtable);
+        hitHurtables.Add(hurtable);
       }
     }
 

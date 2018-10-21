@@ -15,6 +15,7 @@ public class PlayerInput : MonoBehaviour
   private Player player;
 
   private float horizInput;
+  private Vector2 aimDirection;
 
   private bool didPressJump;
   private bool didReleaseJump;
@@ -30,6 +31,7 @@ public class PlayerInput : MonoBehaviour
   {
     Clear();
     horizInput = _GetHorizInput();
+    aimDirection = _GetAimDirection();
     didPressJump = _GetDidPressJump();
     didReleaseJump = _GetDidReleaseJump();
     didPressAttack = _GetDidPressAttack();
@@ -39,6 +41,7 @@ public class PlayerInput : MonoBehaviour
   private void Clear()
   {
     horizInput = 0f;
+    aimDirection = Vector2.zero;
     didPressJump = false;
     didReleaseJump = false;
     didPressAttack = false;
@@ -47,6 +50,7 @@ public class PlayerInput : MonoBehaviour
 
   #region Getters
   public float GetHorizInput() => horizInput;
+  public Vector2 GetAimDirection() => aimDirection;
   public bool GetDidPressJump() => didPressJump;
   public bool GetDidReleaseJump() => didReleaseJump;
   public bool GetDidPressAttack() => didPressAttack;
@@ -66,6 +70,14 @@ public class PlayerInput : MonoBehaviour
     {
       return Mathf.Sign(h);
     }
+  }
+
+  private Vector2 _GetAimDirection()
+  {
+    float horizInput = player.GetAxis("MoveHoriz"); ;
+    float verticalInput = player.GetAxis("MoveVertical");
+    Vector2 direction = new Vector2(horizInput, verticalInput);
+    return direction.normalized;
   }
 
   private bool _GetDidPressJump() => player.GetButtonDown("Jump");

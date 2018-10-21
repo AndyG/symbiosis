@@ -31,6 +31,12 @@ public class StateGrounded : PlayerState
       return new StateAttacking();
     }
 
+    PlayerInput input = context.GetPlayerInput();
+    if (input.GetDidPressGrapple() && input.GetAimDirection().y > 0) {
+      context.GetGrappleHook().SetDirection(input.GetAimDirection());
+      return new StateGrappling();
+    }
+
     float horizInput = playerInput.GetHorizInput();
     float targetVelocityX = horizInput * context.GetSpeed();
     context.velocity.x = Mathf.SmoothDamp(context.velocity.x, targetVelocityX, ref context.velocityXSmoothing, context.GetVelocityXSmoothFactorGrounded());

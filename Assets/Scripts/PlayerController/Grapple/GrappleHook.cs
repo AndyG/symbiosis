@@ -122,6 +122,10 @@ public class GrappleHook : MonoBehaviour
         this.state = State.NONE;
     }
 
+    public void SetDirection(Vector2 direction) {
+        this.direction = direction;
+    }
+
     public Vector2 GetEndingPosition() => transform.position + direction * distance;
 
     public State GetState => state;

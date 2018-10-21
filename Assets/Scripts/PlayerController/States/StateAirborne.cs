@@ -22,7 +22,9 @@ public class StateAirborne : PlayerState
       return new StateWallCling();
     }
 
-    if (context.GetPlayerInput().GetDidPressGrapple()) {
+    PlayerInput input = context.GetPlayerInput();
+    if (input.GetDidPressGrapple() && input.GetAimDirection() != Vector2.zero) {
+      context.GetGrappleHook().SetDirection(input.GetAimDirection());
       return new StateGrappling();
     }
 

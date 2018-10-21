@@ -75,9 +75,7 @@ public class BasicEnemy : MonoBehaviour, Hurtable
       onHitObject.Spawn();
     }
 
-    BeginKnockback();
-
-    // GameObject.Destroy(this.transform.gameObject);
+    GameObject.Destroy(this.transform.gameObject);
   }
 
   private void BeginKnockback() {
