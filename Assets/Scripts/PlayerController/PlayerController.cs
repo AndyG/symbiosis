@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(LagueController2D))]
-public class PlayerController : MonoBehaviour, CameraFollow.Target
+public class PlayerController : MonoBehaviour, CameraFollow.Target, Hurtable
 {
 
   [Header("State")]
@@ -109,6 +109,10 @@ public class PlayerController : MonoBehaviour, CameraFollow.Target
       prevState.OnStateExit(this);
       state.OnStateEnter(this);
     }
+  }
+
+  public void OnHurt(RectHitbox hitbox) {
+    Debug.Log("Hurt");
   }
 
   public void FaceVelocityX() {

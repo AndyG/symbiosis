@@ -18,8 +18,13 @@ public class BasicEnemy : MonoBehaviour, Hurtable
   [SerializeField] private Material hitFlashMaterial;
   [SerializeField] private float hitstopDuration = 0.2f;
 
+  [Header("Attacking")]
+  [SerializeField]
+  private LayerMask attackLayerMask;
+
   private float hitstopTime = 0f;
 
+  [Header("State")]
   [SerializeField]
   private State state;
 
@@ -30,6 +35,7 @@ public class BasicEnemy : MonoBehaviour, Hurtable
   private SpawnOnHit onHitObject;
   private LagueController2D controller2D;
   private Health health;
+  private RectHitbox hitbox;
 
   // Start is called before the first frame update
   void Awake()
@@ -39,6 +45,7 @@ public class BasicEnemy : MonoBehaviour, Hurtable
     animator = GetComponent<Animator>();
     spriteRenderer = GetComponent<SpriteRenderer>();
     health = GetComponent<Health>();
+    hitbox = GetComponent<RectHitbox>();
     defaultMaterial = spriteRenderer.material;
 
     health.OnDiedEvent += this.OnDied;
@@ -67,6 +74,7 @@ public class BasicEnemy : MonoBehaviour, Hurtable
 
   private void IdleTick() {
     velocity = Vector2.left * speed;
+    Attack();
   }
 
   private void KnockbackTick() {
@@ -75,23 +83,35 @@ public class BasicEnemy : MonoBehaviour, Hurtable
     }
   }
 
+  private void Attack() {
+    Collider2D[] hurtboxes = hitbox.GetHurtboxes(attackLayerMask);
+    for (int i = 0; i < hurtboxes.Length; i++) {
+      Hurtable hurtable = hurtboxes[i].GetComponent<Hurtable>();
+      if (hurtable != null) {
+        hurtable.OnHurt(hitbox);
+        Hitstop();
+      }
+    }
+  }
+
   public void OnHurt(RectHitbox hitbox) {
+    this.state = State.KNOCKBACK;
+    this.velocity = knockbackVelocity;
+
+    Hitstop();
+    StopAllCoroutines();
+    StartCoroutine(HitFlash());
+
     if (onHitObject != null) {
       onHitObject.Spawn();
     }
+
     health.subtract(1);
   }
 
   private void OnDied() {
-    GameObject.Destroy(this.transform.gameObject);
-  }
-
-  private void BeginKnockback() {
-    this.state = State.KNOCKBACK;
-    this.velocity = knockbackVelocity;
-    Hitstop();
     StopAllCoroutines();
-    StartCoroutine(HitFlash());
+    GameObject.Destroy(this.transform.gameObject);
   }
 
   private IEnumerator HitFlash() {

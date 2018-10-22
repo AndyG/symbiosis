@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RectHitbox : MonoBehaviour
 {
-    [SerializeField]
+[SerializeField]
     private float attackRangeX = 5;
     [SerializeField]
     private float attackRangeY = 3;

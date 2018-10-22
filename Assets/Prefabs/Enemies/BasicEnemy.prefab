@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1393463143231321072}
   - component: {fileID: 2951611498539773388}
   - component: {fileID: 1354180126}
+  - component: {fileID: 554092835987070880}
   m_Layer: 11
   m_Name: BasicEnemy
   m_TagString: Untagged
@@ -102,6 +103,9 @@ MonoBehaviour:
   hitFlashDuration: 0.2
   hitFlashMaterial: {fileID: 2100000, guid: a57f364d6a03c40e498e88fbef1384f1, type: 2}
   hitstopDuration: 0.2
+  attackLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
   state: 0
 --- !u!114 &5901336726020022482
 MonoBehaviour:
@@ -197,3 +201,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &554092835987070880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8837468120027646283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0387e8f95715425dab342eceb7a9239, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRangeX: 1.92
+  attackRangeY: 1.94
